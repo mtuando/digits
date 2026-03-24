@@ -1,6 +1,21 @@
+:root {
+  --nav-navbar-bg: darkblue;
+  --nav-navbar-bg-rgb: 0, 0, 139;
+  --nav-navbar-text-color: white;
+  --nav-navbar-highlight-text: khaki;
+}
+
+footer, footer a {
+  background-color: var(--nav-navbar-bg);
+  color: var(--nav-navbar-text-color);
+}
+
 html,
 body {
-  --bs-light-rgb: 236, 236, 236;
+  --bs-dark: var(--nav-navbar-bg);
+  --bs-dark-rgb: var(--nav-navbar-bg-rgb);
+  background: fixed center url(../../public/sky.png);
+  background-size: cover;
   box-sizing: border-box;
   height: 100%;
   padding: 0;
@@ -11,4 +26,18 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+body .navbar {
+  background-color: var(--nav-navbar-bg) !important;
+  --bs-navbar-active-color: var(--nav-navbar-highlight-text);
+  --bs-navbar-brand-color: var(--nav-navbar-text-color);
+  --bs-navbar-brand-hover-color: var(--nav-navbar-highlight-text);
+  --bs-navbar-color: var(--nav-navbar-text-color);
+  --bs-navbar-hover-color: var(--nav-navbar-highlight-text);
+  color: var(--nav-navbar-text-color);
+}
+
+.bg-dark a.dropdown-item {
+  color: var(--nav-navbar-bg);
 }
