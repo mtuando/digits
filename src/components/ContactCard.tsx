@@ -1,11 +1,10 @@
 "use client";
 
 import { Contact } from '@/lib/validationSchemas';
-import Link from 'next/link';
 import Card from 'react-bootstrap/Card';
 
 
-const ContactCard = ({ firstName, lastName, image, address, description, id }: Contact) => (
+const ContactCard = ({ firstName, lastName, image, address, description }: Contact) => (
     <Card className='h-100'>
         <Card.Header>
             <Card.Img src={image} style={{ width: '75px' }} />
@@ -14,9 +13,6 @@ const ContactCard = ({ firstName, lastName, image, address, description, id }: C
         </Card.Header>
         <Card.Body>
             <Card.Text>{description}</Card.Text>
-            <Card.Footer>
-                <Link href={`edit/${id}`}>Edit</Link>
-            </Card.Footer>
         </Card.Body>
   </Card>
 );

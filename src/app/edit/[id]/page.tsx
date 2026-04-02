@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
-import { Contact} from '@prisma/client';
+import { Stuff } from '@prisma/client';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/lib/auth';
-import EditContactForm from '@/components/EditContactForm';
+import EditStuffForm from '@/components/EditStuffForm';
 
-export default async function EditContactPage({ params }: { params: { id: string | string[] } }) {
+export default async function EditStuffPage({ params }: { params: { id: string | string[] } }) {
   const { id } = await params;
   // Protect the page, only logged in users can access it.
   const session = await auth();
@@ -15,18 +15,18 @@ export default async function EditContactPage({ params }: { params: { id: string
     } | null,
   );
   const editID: number = +id;
-  const contact: Contact | null = await prisma.contact.findUnique({
+  const stuff: Stuff | null = await prisma.stuff.findUnique({
     where: {
       id: editID,
     },
   });
-  if (!contact) {
+  if (!stuff) {
     return notFound();
   }
 
   return (
     <main>
-      <EditContactForm contact={contact} />
+      <EditStuffForm stuff={stuff} />
     </main>
   );
 }

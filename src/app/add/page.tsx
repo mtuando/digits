@@ -1,8 +1,8 @@
 import { loggedInProtectedPage } from '@/lib/page-protection';
-import AddContactForm from '@/components/AddContactForm';
+import AddStuffForm from '@/components/AddStuffForm';
 import { auth } from '@/lib/auth';
 
-const AddContact = async () => {
+const AddStuff = async () => {
   // Protect the page, only logged in users can access it.
   const session = await auth();
   loggedInProtectedPage(
@@ -12,9 +12,9 @@ const AddContact = async () => {
   );
   return (
     <main>
-      <AddContactForm />
+      <AddStuffForm />
     </main>
   );
 };
 
-export default AddContact;
+export default AddStuff;
