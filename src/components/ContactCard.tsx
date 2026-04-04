@@ -1,23 +1,30 @@
 "use client";
 
-import { Contact } from '@/lib/validationSchemas';
+import { Contact, Note } from '@prisma/client';
 import Link from 'next/link';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import NoteItem from '@/components/NoteItem';
+import AddNoteForm from '@/components/AddNoteForm';
 
-const ContactCard = ({ firstName, lastName, image, address, description, id }: Contact) => (
+const ContactCard = ({ contact, notes }: { contact: Contact & { id: string | number }; notes: Note[] }) => (
     <Card className='h-100'>
         <Card.Header>
-            <Card.Img src={image} style={{ width: '75px' }} />
-            <Card.Title>{firstName} {lastName}</Card.Title>
-            <Card.Subtitle>{address}</Card.Subtitle>
+            <Card.Img src={contact.image} style={{ width: '75px' }} />
+            <Card.Title>{contact.firstName} {contact.lastName}</Card.Title>
+            <Card.Subtitle>{contact.address}</Card.Subtitle>
         </Card.Header>
         <Card.Body>
-            <Card.Text>{description}</Card.Text>
-            <Card.Footer>
-                <Link href={`edit/${id}`}>Edit</Link>
-            </Card.Footer>
+            <Card.Text>{contact.description}</Card.Text>
         </Card.Body>
-  </Card>
+        <ListGroup variant="flush">
+            {notes.map((note) => <NoteItem key={note.id} note={note} />)}
+        </ListGroup>
+        <AddNoteForm contactId={contact.id} />
+        <Card.Footer>
+            <Link href={`edit/${contact.id}`}>Edit</Link>
+        </Card.Footer>
+    </Card>
 );
 
 export default ContactCard;
