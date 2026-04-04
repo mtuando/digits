@@ -7,8 +7,6 @@ import { Contact } from '@/lib/validationSchemas';
 import ContactCard from '@/components/ContactCard';
 import { prisma } from '@/lib/prisma';
 
-const contacts: Contact[] = await prisma.contact.findMany({});
-
 /** Render a list of stuff for the logged in user. */
 const ListPage = async () => {
   // Protect the page, only logged in users can access it.
@@ -25,6 +23,10 @@ const ListPage = async () => {
   //   },
   // });
   // console.log(stuff);
+
+  const contacts: Contact[] = await prisma.contact.findMany({});
+
+
   return (
     <main>
       <h2 className="text-center">List Contacts</h2>
