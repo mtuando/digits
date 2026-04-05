@@ -1,24 +1,12 @@
-![]<img src="doc/Screenshot 2026-04-04 182208.png">
+<img src="doc/Screenshot 2026-04-04 182208.png">
 
-nextjs-application-template is a sample Next.js 16 application that illustrates:
+Digits is an application that allows users to:
 
-- A standard directory layout using 'src/' as recommended in the [Next.js Project Structure](https://nextjs.org/docs/getting-started/project-structure) guide.
-- [Bootstrap 5 React](https://react-bootstrap.github.io/) for user interface.
-- [React Hook Form](https://www.react-hook-form.com/) for form development.
-- Authorization, authentication, and registration using [NextAuth.js](https://next-auth.js.org/).
-- Initialization of users and data from a settings file.
-- Alerts regarding success or failure of DB updates using [Sweet Alert](https://sweetalert.js.org/).
-- Quality assurance using [ESLint](http://eslint.org) with packages to partially enforce the [Next.js ESLint rules](https://nextjs.org/docs/app/building-your-application/configuring/eslint).
-
-The goal of this template is to help you get quickly started doing Next.js development by providing a reasonable directory structure for development and deployment, a set of common extensions to the core framework, and boilerplate code to implement basic page display, navigation, forms, roles, and database manipulation.
-
-To keep this codebase simple and small, some important capabilities are intentionally excluded from this template:
-
-- Unit Testing
-- Security
-- Deployment
-
-Examples of the these capabilities will be provided elsewhere.
+<ul>
+  <li>Register an account.</li>
+  <li>Create and manage a set of contacts.</li>
+  <li>Add a set of timestamped notes regarding their interactions with each contact.</li>
+</ul>
 
 ## Installation
 
@@ -32,7 +20,7 @@ $
 
 ```
 
-Second, go to [https://github.com/ics-software-engineering/nextjs-application-template](https://github.com/ics-software-engineering/nextjs-application-template-s26), and click the "Use this template" button. Complete the dialog box to create a new repository that you own that is initialized with this template's files.
+Second, go to [https://github.com/mtuando/digits](https://github.com/mtuando/digits), and click the "Use this template" button. Complete the dialog box to create a new repository that you own that is initialized with this template's files.
 
 Third, go to your newly created repository, and click the "Clone or download" button to download your new GitHub repo to your local file system. Using [GitHub Desktop](https://desktop.github.com/) is a great choice if you use MacOS or Windows.
 
@@ -44,7 +32,7 @@ $ npm install
 
 ```
 
-Fifth, create a `.env` file from the `sample.env`. Edit the line `DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"` to match your setup. Replace `mydb` with the PostgreSQL database that you created in the first step (in the example for this step the database is `nextjs-application-template`). replace `johndoe:randompassword` with a username and password you created for this db. If you did not create a user for this database, you can use the `postgress` user with the password you set when you installed postgress. Note: this is not a recommdened practice since the `postgres` user is an admin with full access to postgres. 
+Fifth, create a `.env` file from the `sample.env`. Edit the line `DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"` to match your setup. Replace `mydb` with the PostgreSQL database that you created in the first step (in the example for this step the database is `digits`). replace `johndoe:randompassword` with a username and password you created for this db. If you did not create a user for this database, you can use the `postgress` user with the password you set when you installed postgress. Note: this is not a recommdened practice since the `postgres` user is an admin with full access to postgres. 
 
 See the Prisma docs [Connect your database](https://www.prisma.io/docs/prisma-orm/add-to-existing-project/postgresql#3-connect-your-database). 
 
@@ -96,10 +84,9 @@ $ npm run seed
 Seeding the database
   Creating user: admin@foo.com with role: ADMIN
   Creating user: john@foo.com with role: USER
-  Adding stuff: {"name":"Basket","quantity":3,"owner":"john@foo.com","condition":"excellent"}
-  Adding stuff: {"name":"Bicycle","quantity":2,"owner":"john@foo.com","condition":"poor"}
-  Adding stuff: {"name":"Banana","quantity":2,"owner":"admin@foo.com","condition":"good"}
-  Adding stuff: {"name":"Boogie Board","quantity":2,"owner":"admin@foo.com","condition":"excellent"}
+  Adding contact: {"firstName":"Philip","lastName":"Johnson","address":"POST 307, University of Hawaii","image":"https://github.com/philipmjohnson.png","description":"I am a Professor of Information and Computer Sciences at the University of Hawaii, Director of the Collaborative Software Development Laboratory, and the CEO of OpenPowerQuality.com.","owner":"john@foo.com"}
+  Adding contact: {"firstName":"Henri","lastName":"Casanova","address":"POST 307, University of Hawaii","image":"https://avatars0.githubusercontent.com/u/7494478?s=460&v=4","description":"I am originally from France. I maintain a list of reports from my surf sessions. I have proof that I ran the Hana relay with an actual Team.","owner":"john@foo.com"}
+  Adding contact: {"firstName":"Kim","lastName":"Binsted","address":"POST 307, University of Hawaii","image":"https://www.ics.hawaii.edu/wp-content/uploads/2013/08/kim_binsted-square-300x300.jpg","description":"Kim Binsted received her BSc in Physics at McGill (1991), and her PhD in Artificial Intelligence from the University of Edinburgh (1996). Her thesis topic was the computational modeling and generation of punning riddles, and her program, JAPE (Joke Analysis and Production Engine), generated puns such as \"What do you call a Martian who drinks beer? An ale-ien!\".","owner":"admin@foo.com"}
 $
 
 ```
@@ -224,7 +211,7 @@ The src/ directory has this structure:
 app/
 
   add/ # The add route
-    page.tsx # The Add Stuff Page
+    page.tsx # The Add Contact Page
 
   admin/
     page.tsx # The Admin Page
@@ -246,10 +233,10 @@ app/
       page.tsx # The Sign Up / Register Page
 
   edit/
-    page.tsx # The Edit Stuff Page
+    page.tsx # The Edit Contact Page
 
   list/
-    page.tsx # The List Stuff Page
+    page.tsx # The List Contact Page
 
   not-authorized/
     page.tsx # The Not Authorized Page
@@ -261,9 +248,6 @@ app/
   providers.tsx # Session providers.
 
   components/
-    AddStuffForm.tsx # The React Hook Form for adding stuff.
-
-    EditStuffForm.tsx # The Edit Stuff Form.
 
     Footer.tsx # The application footer.
 
@@ -271,9 +255,15 @@ app/
 
     Navbar.tsx # The application navbar.
 
-    StuffItem.tsx # Row in the list stuff page.
+    ContactCard.tsx # The contact cards of each individual
 
-    StuffItemAdmin.tsx # Row in the admin list stuff page.
+    ContactCardAdmin.tsx # The admin's view of contact cards of each individual
+
+    AddContactForm.tsx # The form to create a ContactCard
+
+    AddNoteForm.tsx # The form within a ContactCard to create a note
+
+    NoteItem.tsx # Stamp the time of each note created
 
   lib/
 
@@ -291,15 +281,15 @@ app/
 
 ### Application functionality
 
-The application implements a simple CRUD application for managing "Stuff", which is a PostgreSQL table consisting of a name (String), a quantity (Number), a condition (one of 'excellent', 'good', 'fair', or 'poor') and an owner.
+The application implements a simple CRUD application for managing "Contact", which is a PostgreSQL table consisting of a first name (String) and a last name (String), an address (String), an image link (String), a description (String), a list of notes (Note[]) and an owner.
 
-By default, each user only sees the Stuff that they have created. However, the settings file enables you to define default accounts. If you define a user with the role "admin", then that user gets access to a special page which lists all the Stuff defined by all users.
+By default, each user only sees the Contact that they have created. However, the settings file enables you to define default accounts. If you define a user with the role "admin", then that user gets access to a special page which lists all the Contact defined by all users.
 
 #### Landing page
 
 When you retrieve the app at http://localhost:3000, this is what should be displayed:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-page.png)
+<img src="doc/Screenshot 2026-04-04 182208.png">
 
 The next step is to use the Login menu to either Login to an existing account or register a new account.
 
@@ -307,41 +297,41 @@ The next step is to use the Login menu to either Login to an existing account or
 
 Clicking on the Login link, then on the Sign In menu item displays this page:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/signin-page.png)
+<img src="doc/Screenshot 2026-04-04 183440.png">
 
 #### Register page
 
 Alternatively, clicking on the Login link, then on the Sign Up menu item displays this page:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/register-page.png)
+<img src="doc\Screenshot 2026-04-04 184005.png">
 
 #### Landing (after Login) page, non-Admin user
 
 Once you log in (either to an existing account or by creating a new one), the navbar changes as follows:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/landing-after-login-page.png)
+<img src="doc\Screenshot 2026-04-04 182846.png">
 
-You can now add new Stuff documents, and list the Stuff you have created. Note you cannot see any Stuff created by other users.
+You can now add new Contact documents, and list the Contact you have created. Note you cannot see any Contact created by other users.
 
-#### Add Stuff page
+#### Add Contact page
 
-After logging in, here is the page that allows you to add new Stuff:
+After logging in, here is the page that allows you to add new Contact:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/add-stuff-page.png)
+<img src="doc\Screenshot 2026-04-04 184056.png">
 
-#### List Stuff page
+#### List Contact page
 
-After logging in, here is the page that allows you to list all the Stuff you have created:
+After logging in, here is the page that allows you to list all the Contact you have created:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/list-stuff-page.png)
+<img src="doc\Screenshot 2026-04-04 184056.png">
 
-You click the "Edit" link to go to the Edit Stuff page, shown next.
+You click the "Edit" link to go to the Edit Contact page, shown next.
 
-#### Edit Stuff page
+#### Edit Contact page
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-Contact-page.png)
 
 #### Landing (after Login), Admin user
 
@@ -349,18 +339,19 @@ You can define an "admin" user in the settings.json file. This user, after loggi
 
 ![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-landing-page.png)
 
-#### Admin page (list all users stuff)
+#### Admin page (list all users Contact)
 
-To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Stuff by all of the users:
+To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Contact by all of the users:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-stuff-page.png)
+![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-Contact-page.png)
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
+
 ### Tables
 
-The application implements two tables "Stuff" and "User". Each Stuff row has the following columns: id, name, quantity, condition, and owner. The User table has the following columns: id, email, password (hashed using bcrypt), role.
+The application implements two tables "Contact" and "User". Each Contact row has the following columns: id, name, quantity, condition, and owner. The User table has the following columns: id, email, password (hashed using bcrypt), role.
 
-The Stuff and User models are defined in [prisma/schema.prisma](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/schema.prisma).
+The Contact and User models are defined in [prisma/schema.prisma](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/schema.prisma).
 
 The tables are initialized in [prisma/seed.ts](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/prisma/seed.ts) using the command `npx prisma db seed`.
 
@@ -395,13 +386,13 @@ Routing is defined by the directory structure.
 
 For authentication, the application uses the NextAuth package.
 
-When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and stuff in the PostgreSQL database. That will lead to a default accounts being created.
+When the database is seeded, a settings file (such as [config/settings.development.json](https://github.com/ics-software-engineering/nextjs-application-template/blob/main/config/settings.development.json)) is used to create users and Contact in the PostgreSQL database. That will lead to a default accounts being created.
 
 The application allows users to register and create new accounts at any time.
 
 ### Authorization
 
-Only logged in users can manipulate Stuff items (but any registered user can manipulate any Stuff item, even if they weren't the user that created it.)
+Only logged in users can manipulate Contact items (but any registered user can manipulate any Contact item, even if they weren't the user that created it.)
 
 ### Configuration
 
