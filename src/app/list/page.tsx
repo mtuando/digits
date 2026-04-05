@@ -3,7 +3,7 @@ import { Col, Row} from 'react-bootstrap';
 // import StuffItem from '@/components/StuffItem';
 import { loggedInProtectedPage } from '@/lib/page-protection';
 import { auth } from '@/lib/auth';
-import { Contact } from '@/lib/validationSchemas';
+import { Contact } from '@prisma/client';
 import ContactCard from '@/components/ContactCard';
 import { prisma } from '@/lib/prisma';
 
@@ -16,16 +16,14 @@ const ListPage = async () => {
       user: { email: string; id: string; name: string };
     } | null,
   );
-  // const owner = (session && session.user && session.user.email) || '';
-  // const stuff = await prisma.stuff.findMany({
-  //   where: {
-  //     owner,
-  //   },
-  // });
-  // console.log(stuff);
-
-  const contacts: Contact[] = await prisma.contact.findMany({});
-
+  const contacts: Contact[] = await prisma.contact.findMany({
+    include: { notes: true },
+  });
+  const notes = await prisma.note.findMany({
+    where: {
+      owner: session?.user!.email ? session.user.email : undefined,
+    },
+  });
 
   return (
     <main>
@@ -33,7 +31,8 @@ const ListPage = async () => {
       <Row xs={1} md={2} lg={3} className="g-4">    
         {contacts.map((contact, idx) => (
           <Col key={idx}>
-            <ContactCard {...contact} />
+            <ContactCard contact={contact} 
+                         notes={notes.filter(note => note.contactId === contact.id)} />
           </Col>
         ))}
       </Row>
