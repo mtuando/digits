@@ -1,4 +1,4 @@
-![](<img src="doc/Screenshot 2026-04-04 182208.png">)
+![]<img src="doc/Screenshot 2026-04-04 182208.png">
 
 nextjs-application-template is a sample Next.js 16 application that illustrates:
 
