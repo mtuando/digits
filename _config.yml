@@ -1,5 +1,5 @@
-title: nextjs-application-template
-description: A template for quickly starting Next.js application development
+title: Digits
+description: A template for creating and storing contact informations.
 google_analytics:
 show_downloads: true
 remote_theme: pages-themes/midnight@v0.2.0
