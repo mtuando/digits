@@ -323,7 +323,7 @@ After logging in, here is the page that allows you to add new Contact:
 
 After logging in, here is the page that allows you to list all the Contact you have created:
 
-<img src="doc\Screenshot 2026-04-04 184056.png">
+<img src="doc\Screenshot 2026-04-04 182846.png">
 
 You click the "Edit" link to go to the Edit Contact page, shown next.
 
@@ -331,19 +331,19 @@ You click the "Edit" link to go to the Edit Contact page, shown next.
 
 After clicking on the "Edit" link associated with an item, this page displays that allows you to change and save it:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/edit-Contact-page.png)
+<img src="doc\Screenshot 2026-04-04 191202.png">
 
 #### Landing (after Login), Admin user
 
 You can define an "admin" user in the settings.json file. This user, after logging in, gets a special entry in the navbar:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-landing-page.png)
+<img src="doc/Screenshot 2026-04-06 174918.png">
 
 #### Admin page (list all users Contact)
 
 To provide a simple example of a "super power" for Admin users, the Admin page lists all of the Contact by all of the users:
 
-![](https://github.com/ics-software-engineering/nextjs-application-template/raw/main/doc/admin-list-Contact-page.png)
+<img src="doc/Screenshot 2026-04-04 184531.png">
 
 Note that non-admin users cannot get to this page, even if they type in the URL by hand.
 
